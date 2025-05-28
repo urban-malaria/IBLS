@@ -83,6 +83,10 @@ both_summary <- merged_long %>%
     both_rate = both_cases / n
   )
 
+## -----------------------------------------------------------------------------------------------------------------------------------------
+### Plots
+## -----------------------------------------------------------------------------------------------------------------------------------------
+
 # fever incidence line plot
 ggplot(fever_summary, aes(x = month, y = fever_rate)) +
   geom_line(color = "orange", size = 1.2) +
@@ -225,3 +229,14 @@ p_by_month <- ggplot(combined_wide, aes(x = rdt_positivity, y = fever_rdt_positi
 p_by_month
 
 ggsave(paste0(FigDir,"/", "_prev_inc_by_month.pdf"), p_by_month, width = 10, height = 8)
+
+
+## -----------------------------------------------------------------------------------------------------------------------------------------
+### Statistical Tests
+## -----------------------------------------------------------------------------------------------------------------------------------------
+
+lm_model <- lm(fever_rdt_positive ~ rdt_positivity + fup_age_group, data = combined_wide)
+summary(lm_model)
+
+# try GAM
+
