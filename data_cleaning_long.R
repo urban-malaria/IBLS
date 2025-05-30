@@ -1,5 +1,5 @@
 # ==========================================================================================================================================
-## Script Name: Data Cleaning
+## Script Name: Data Cleaning: Longitudinal Data
 ## Purpose: Assigns variable names and does data cleaning of baseline and follow-up IBLS data 
 ## Author: Grace Legris, Research Data Analyst
 # ==========================================================================================================================================
@@ -7,8 +7,8 @@
 source("load_path.R")
 
 # read in data
-base_data <- read.csv(file.path(DataDir, "IBLS_baselineall.csv"))
-fup_data <- read.csv(file.path(DataDir, "IBLS_ffwupall.csv"))
+base_data <- read.csv(file.path(LongDataDir, "IBLS_baselineall.csv"))
+fup_data <- read.csv(file.path(LongDataDir, "IBLS_ffwupall.csv"))
 
 ## -----------------------------------------------------------------------------------------------------------------------------------------
 ### Clean Baseline Data

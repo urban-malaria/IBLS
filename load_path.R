@@ -10,7 +10,8 @@ rm(list=ls())
 Drive <- file.path(gsub("[\\]", "/", gsub("Documents", "", gsub("OneDrive", "", Sys.getenv("HOME")))))
 Drive <- file.path(gsub("[//]", "/", Drive))
 DriveDir <- file.path(Drive, "Urban Malaria Proj Dropbox", "urban_malaria")
-DataDir <- file.path(DriveDir, "data/nigeria/kano_ibadan_epi/Latest Longitudinal Survey Data_May 2025/Ibadan Longitudinal data")
+LongDataDir <- file.path(DriveDir, "data/nigeria/kano_ibadan_epi/Latest Longitudinal Survey Data_May 2025/Ibadan Longitudinal data")
+CSDataDir <- file.path(DriveDir, "data/nigeria/kano_ibadan_epi/Field data/HF_data")
 FigDir <- file.path(DriveDir, "projects/ChatMRPT/IBLS/Figures")
 
 #load packages
