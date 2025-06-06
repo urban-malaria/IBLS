@@ -12,6 +12,10 @@ Drive <- file.path(gsub("[//]", "/", Drive))
 DriveDir <- file.path(Drive, "Urban Malaria Proj Dropbox", "urban_malaria")
 LongDataDir <- file.path(DriveDir, "data/nigeria/kano_ibadan_epi/Latest Longitudinal Survey Data_May 2025/Ibadan Longitudinal data")
 CSDataDir <- file.path(DriveDir, "data/nigeria/kano_ibadan_epi/Field data/HF_data")
+CSMenDataDirDry <- file.path(DriveDir, "data/nigeria/kano_ibadan_epi/Combined Working Data/Kano/Dry Season Data/Wide Data")
+CSMenDataDirWet <- file.path(DriveDir, "data/nigeria/kano_ibadan_epi/Combined Working Data/Kano/Wet Season Data/Wide Data")
+CSMenDataDirWetIbadan <- file.path(DriveDir, "data/nigeria/kano_ibadan_epi/Combined Working Data/Ibadan/Wet Season Data/Wide Data")
+
 FigDir <- file.path(DriveDir, "projects/ChatMRPT/IBLS/Figures")
 
 #load packages
@@ -43,7 +47,7 @@ list_of_packages <- c(
   "broom", "ggthemes", "ggrepel", "sjlabelled", "sf", "ggpubr", "viridis", "patchwork",
   "raster", "wordcloud", "ggwordcloud", "plotly", "gridExtra", "grid",
   "openxlsx", "officer", "magrittr", "mclust", "foot", "units", "tidyr",
-  "foreach", "doParallel", "future.apply", "dplyr", "stringr", "purrr", "stars", "tictoc"
+  "foreach", "doParallel", "future.apply", "dplyr", "stringr", "purrr", "stars", "tictoc", "readstata13"
 )
 
 read_install_packages <- function(packages = list_of_packages) {
