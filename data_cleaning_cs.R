@@ -7,8 +7,8 @@
 source("load_path.R")
 
 # read in data
-wet <- read.csv(file.path(CSDataDir, "HF_data_Ibadan_wet_season_with_wards.csv"))
-dry <- read.csv(file.path(CSDataDir, "HF_data_merged_kn_ib_dryseason.csv"))
+ibadan_wet_household <- read.csv(file.path(CSDataDir, "HF_data_Ibadan_wet_season_with_wards.csv"))
+ibadan_dry_household <- read.csv(file.path(CSDataDir, "HF_data_merged_kn_ib_dryseason.csv"))
 
 rename_cs_data <- function(data) {
   data <- data %>% 
@@ -40,10 +40,10 @@ rename_cs_data <- function(data) {
   return(data)
 }
 
-wet <- rename_cs_data(wet)
-dry <- rename_cs_data(dry)
+ibadan_wet_household <- rename_cs_data(ibadan_wet_household)
+ibadan_dry_household <- rename_cs_data(ibadan_dry_household)
 
 library(openxlsx)
-wet$date <- convertToDate(wet$date, origin = "1900-01-01")
+ibadan_wet_household$date <- convertToDate(ibadan_wet_household$date, origin = "1900-01-01")
 
 
