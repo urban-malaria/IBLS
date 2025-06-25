@@ -136,31 +136,51 @@ kano_dry <- kano_dry %>%
 ## -----------------------------------------------------------------------------------------------------------------------------------------
 
 # read in data
-ibadan_wet <- read.dta13(file.path(CSMenDataDirWetIbadan, "all_ibadan_wetseason_dater_wide.dta"))
+ibadan_wet <- read.dta13(file.path(CSMenDataDirDryIbadan, "all_ibadan_wetseason_dater_wide1.dta"))
+ibadan_dry <- read.dta13(file.path(CSMenDataDirDryIbadan, "Ibadan_dryseason_hh_men_dry.dta"))
 
 ibadan_wet <- ibadan_wet %>% 
+  dplyr::select(-ward) %>% 
   rename(
-    lga = LGA...644,
-    ward = ward_r...645,
-    settlement_type = bi3_men,
+    lga = LGA_643,
+    ward = ward_r_644,
+    settlement_type = bi3,
+    age = q201a_men,
+    dob = q201b_men,
     two_wk_fever = q401_men,
     test_result = q702_men
   ) %>%
-  dplyr::select(sn, lga, ward, settlement_type, ea, 
+  dplyr::select(sn, lga, ward, settlement_type, age, dob,
                 two_wk_fever, test_result) %>% 
+  mutate(
+    ward = case_when(
+      ward == 1 ~ "Agugu",
+      ward == 2 ~ "Basorun",
+      ward == 3 ~ "Challenge",
+      ward == 4 ~ "Olopomewa",
+      TRUE ~ NA_character_)
+  ) %>% 
+  mutate(
+    lga = case_when(
+      lga == 1 ~ "Ibadan North",
+      lga == 2 ~ "Ibadan Northeast",
+      lga == 3 ~ "Ibadan Northwest",
+      lga == 4 ~ "Ibadan Southeast",
+      TRUE ~ NA_character_)
+  ) %>% 
   mutate(
     settlement_type = case_when(
       settlement_type == 1 ~ "formal",
       settlement_type == 2 ~ "informal",
       settlement_type == 3 ~ "slum",
       TRUE ~ NA_character_)
-  ) %>% 
+  ) %>%
   mutate(
     two_wk_fever = case_when(
       two_wk_fever == 1 ~ "yes",
       two_wk_fever == 2 ~ "no",
       TRUE ~ NA_character_)
-  ) %>% 
+  ) %>%
   mutate(
     test_result = case_when(
       test_result == 1 ~ "positive",
@@ -169,6 +189,57 @@ ibadan_wet <- ibadan_wet %>%
       TRUE ~ NA_character_)
   )
 
+# remove men under 18 and NA values
+ibadan_wet <- ibadan_wet %>% 
+  dplyr::filter(age >= 18)
 
+ibadan_dry <- ibadan_dry %>% 
+  rename(
+    lga = bi1_x,
+    ward = bi2_x,
+    settlement_type = bi3_x,
+    age = q201a,
+    dob = q201b,
+    two_wk_fever = q401,
+    test_result = q702
+  ) %>%
+  dplyr::select(sn, lga, ward, settlement_type, age, dob,
+                two_wk_fever, test_result) %>% 
+  mutate(
+    ward = case_when(
+      ward == 1 ~ "Agugu",
+      ward == 2 ~ "Basorun",
+      ward == 3 ~ "Challenge",
+      ward == 4 ~ "Olopomewa",
+      TRUE ~ NA_character_)
+  ) %>% 
+  mutate(
+    lga = case_when(
+      lga == 1 ~ "Ibadan North",
+      lga == 2 ~ "Ibadan Northeast",
+      lga == 3 ~ "Ibadan Northwest",
+      lga == 4 ~ "Ibadan Southeast",
+      TRUE ~ NA_character_)
+  ) %>% 
+  mutate(
+    settlement_type = case_when(
+      settlement_type == 1 ~ "formal",
+      settlement_type == 2 ~ "informal",
+      settlement_type == 3 ~ "slum",
+      TRUE ~ NA_character_)
+  ) %>%
+  mutate(
+    two_wk_fever = case_when(
+      two_wk_fever == 1 ~ "yes",
+      two_wk_fever == 2 ~ "no",
+      TRUE ~ NA_character_)
+  ) %>%
+  mutate(
+    test_result = case_when(
+      test_result == 1 ~ "positive",
+      test_result == 2 ~ "negative",
+      test_result == 3 ~ "other",
+      TRUE ~ NA_character_)
+  )
 
 
