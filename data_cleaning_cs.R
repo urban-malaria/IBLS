@@ -4,7 +4,7 @@
 ## Author: Grace Legris, Research Data Analyst
 # ==========================================================================================================================================
 
-source("load_path.R")
+#source("load_path.R")
 
 # read in data
 ibadan_wet_household <- read.csv(file.path(CSDataDir, "HF_data_Ibadan_wet_season_with_wards.csv"))
