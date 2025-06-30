@@ -30,7 +30,7 @@ all_df$fup_age_group <- ifelse(all_df$child_age_years_fup1 <= 5, "0–5", "6–1
 
 # Reshape fever and RDT result variables to long format
 fever_long <- all_df %>%
-  dplyr::select(sn, fup_age_group, starts_with("two_wk_fever_m")) %>%
+  dplyr::select(sn, settlement_type, fup_age_group, starts_with("two_wk_fever_m")) %>%
   pivot_longer(
     cols = starts_with("two_wk_fever_m"),
     names_to = "month",
@@ -39,7 +39,7 @@ fever_long <- all_df %>%
   mutate(month = as.numeric(gsub("two_wk_fever_m", "", month)))
 
 rdt_long <- all_df %>%
-  dplyr::select(sn, fup_age_group, starts_with("study_rdt_result_m")) %>%
+  dplyr::select(sn, settlement_type, fup_age_group, starts_with("study_rdt_result_m")) %>%
   pivot_longer(
     cols = starts_with("study_rdt_result_m"),
     names_to = "month",

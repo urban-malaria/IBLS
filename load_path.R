@@ -16,7 +16,7 @@ CSMenDataDirDry <- file.path(DriveDir, "data/nigeria/kano_ibadan_epi/Combined Wo
 CSMenDataDirWet <- file.path(DriveDir, "data/nigeria/kano_ibadan_epi/Combined Working Data/Kano/Wet Season Data/Wide Data")
 CSMenDataDirWetIbadan <- file.path(DriveDir, "data/nigeria/kano_ibadan_epi/Combined Working Data/Ibadan/Wet Season Data/Wide Data")
 CSMenDataDirDryIbadan <- file.path(DriveDir, "data/nigeria/kano_ibadan_epi/Combined Working Data/Ibadan/Dry Season Data")
-KidsData <- file.path(DriveDir, "data/nigeria/kano_ibadan_epi/new_field_data/mrpt_analysis data")
+KidsData <- file.path(DriveDir, "data/nigeria/kano_ibadan_epi/new_field_data/mrpt_analysis data/")
 FigDir <- file.path(DriveDir, "projects/ChatMRPT/IBLS/Figures")
 
 #load packages
