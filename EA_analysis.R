@@ -13,7 +13,7 @@ library(readstata13)
 kano_dry <- read.dta13(file.path(EADataDir, "Kano/Dry Season Data/Long Data/long_dryseason_household_membersV00.dta"))
 kano_wet <- read.dta13(file.path(EADataDir, "Kano/Wet Season Data/Long Data/kano_wetseason_long_data.dta"))
 ibadan_dry <- read.dta13(file.path(EADataDir, "Ibadan/Dry Season Data/Long Data/Ibadan_long_dry_season_household_members_records.dta"))
-ibadan_wet <- read.dta13(file.path(EADataDir, "Ibadan/Wet Season Data/Long Data/ibadan_long_wetseason_household_members_with_ind_nets.dta"))
+ibadan_wet <- read.dta13(file.path(EADataDir, "Ibadan/Wet Season Data/Long Data/ibadan_long_wetseason_household_members_with_ind_nets.dta")) %>% dplyr::rename(ea_cluster = enumaration_area)
 kano_centroids <- read.csv(file.path(CentroidDir, "Kano/kano_final_centroids_data.csv"))
 ibadan_centroids <- read.csv(file.path(CentroidDir, "Ibadan/Ibadan_centoids_data.csv")) %>% dplyr::rename(ea_names = ea_numbers_new)
 
@@ -36,14 +36,13 @@ clean_data <- function(data) {
 
 # some duplicated variable names so make names unique
 names(kano_wet) <- make.names(names(kano_wet), unique = TRUE)
-ibadan_wet <- ibadan_wet %>% dplyr::rename(ea_cluster = enumaration_area)
 
 kano_dry <- clean_data(kano_dry)
 kano_wet <- clean_data(kano_wet)
 ibadan_dry <- clean_data(ibadan_dry)
 ibadan_wet <- clean_data(ibadan_wet)
 
-# filter both datasets for only children under 5
+# filter datasets for only children under 5
 kano_wet <- kano_wet %>% dplyr::filter(age < 5)
 kano_dry <- kano_dry %>% dplyr::filter(age < 5)
 ibadan_wet <- ibadan_wet %>% dplyr::filter(age < 5)
@@ -75,7 +74,7 @@ ibadan_tpr_by_ea_dry <- summarize_tpr(ibadan_dry)
 ibadan_tpr_by_ea_wet <- summarize_tpr(ibadan_wet)
 ibadan_tpr_by_ea_total <- summarize_tpr(ibadan)
 
-# merge the centroid data in using ea_number_new or ea_names column
+# merge the centroid data in using ea_names column
 merge_centroids <- function(data, centroids) {
   data <- data %>%
     left_join(centroids, by = c("ea_cluster" = "ea_names"))
