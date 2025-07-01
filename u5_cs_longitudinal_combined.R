@@ -402,6 +402,7 @@ six_ten_cs <- all_df %>% dplyr::filter(age >= 5 & age <= 10)
 eleven_seventeen_cs <- all_df %>% dplyr::filter(age >= 11 & age <= 17)
 eighteen_thirty_cs <- all_df %>% dplyr::filter(age >= 18 & age <= 30)
 thirty_plus_cs <- all_df %>% dplyr::filter(age >= 30)
+adults_cs <- all_df %>% dplyr::filter(age >= 18)
 
 all_df <- all_df %>%
   mutate(age_cat = case_when(
@@ -441,6 +442,7 @@ six_ten_summary <- summarize_by_settlement(six_ten_cs)
 eleven_seventeen_summary <- summarize_by_settlement(eleven_seventeen_cs)
 eighteen_thirty_summary <- summarize_by_settlement(eighteen_thirty_cs)
 thirty_plus_summary <- summarize_by_settlement(thirty_plus_cs)
+adults_summary <- summarize_by_settlement(adults_cs)
 
 # add "cross-sectional" to the dfs
 u5_summary <- u5_summary %>% mutate(data_type = "Cross-Sectional")
@@ -448,6 +450,7 @@ six_ten_summary <- six_ten_summary %>% mutate(data_type = "Cross-Sectional")
 eleven_seventeen_summary <- eleven_seventeen_summary %>% mutate(data_type = "Cross-Sectional", age = "11-17")
 eighteen_thirty_summary <- eighteen_thirty_summary %>% mutate(data_type = "Cross-Sectional", age = "18-30")
 thirty_plus_summary <- thirty_plus_summary %>% mutate(data_type = "Cross-Sectional", age = "30+")
+adults_summary <- adults_summary %>% mutate(data_type = "Cross-Sectional", age = "18+")
 
 
 ## -----------------------------------------------------------------------------------------------------------------------------------------
@@ -552,3 +555,22 @@ everyone_plot <- ggplot(all_summary, aes(x = prevalence, y = incidence, color = 
 everyone_plot
 
 ggsave(paste0(FigDir,"/", "_all_cs_plot.pdf"), everyone_plot, width = 8, height = 8)
+
+adults_plot <- ggplot(adults_summary, aes(x = prevalence, y = incidence)) +
+  geom_point(aes(size = 2)) +
+  #geom_smooth(se = FALSE, method = "lm") +
+  geom_text(aes(label = settlement_type), hjust = 0, vjust = 1.2, size = 3) +
+  labs(
+    title = "Prevalence vs. Incidence in Adults (18+) by Settlement Type",
+    subtitle = "Cross-Sectional Survey",
+    x = "Prevalence",
+    y = "Incidence"
+  ) +
+  theme_manuscript() +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5)
+  )
+adults_plot
+
+ggsave(paste0(FigDir,"/", "_adults_plot.pdf"), adults_plot, width = 8, height = 8)
